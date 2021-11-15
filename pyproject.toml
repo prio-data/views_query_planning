@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "views_query_planning"
+version = "1.0.0"
+description = ""
+authors = ["peder2911 <pglandsverk@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+networkx = "^2.6.3"
+SQLAlchemy = "^1.4.27"
+
+[tool.poetry.dev-dependencies]
+jedi = "^0.18.0"
+pylint = "^2.11.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
