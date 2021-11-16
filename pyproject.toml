@@ -8,6 +8,13 @@ authors = ["peder2911 <pglandsverk@gmail.com>"]
 python = "^3.8"
 networkx = "^2.6.3"
 SQLAlchemy = "^1.4.27"
+click = "^8.0.3"
+psycopg2 = "^2.9.2"
+pydot = "^1.4.2"
+matplotlib = "^3.5.0"
+
+[tool.poetry.scripts]
+vqp = "views_query_planning.cli:vqp"
 
 [tool.poetry.dev-dependencies]
 jedi = "^0.18.0"
