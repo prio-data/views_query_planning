@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "views_query_planning"
-version = "1.0.0"
+version = "1.0.1"
 description = ""
 authors = ["peder2911 <pglandsverk@gmail.com>"]
 
