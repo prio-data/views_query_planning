@@ -110,7 +110,7 @@ def compose_join(network,loa_name,table_name,column_name,loa_index_columns,agg_f
                 assert agg_fn in definitions.AGGREGATION_FUNCTIONS
             except AssertionError:
                 raise exceptions.AggregationNameError(
-                        "Aggregation function {agg_fn} "
+                        f"Aggregation function {agg_fn} "
                         "is not available. "
                         "Available functions are: "
                         f"{', '.join(definitions.AGGREGATION_FUNCTIONS)}."
