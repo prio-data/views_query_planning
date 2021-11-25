@@ -221,16 +221,16 @@ def path(forwards: bool, network: DiGraph, a: T, b: T)-> Maybe[Deque[T]]:
         logger.debug(f"No path between {a} and {b} in {network}! ({'forwards' if forwards else 'backwards'})")
         return Nothing
 
-def aggregate(aggregation_function: str, aggregate_to: Table, column: Column, select: Select)-> Select:
+def aggregate(aggregation_function_name: str, aggregate_to: Table, column: Column, select: Select)-> Select:
     """
     aggregate
     =========
 
     arguments:
-        aggregation_function (str): Name of agg. fn
-        aggregate_to (Table):       Table to aggregate to
-        column (Column):            Column to aggregate
-        select (Select):            Select statement to mutate
+        aggregation_function_name (str): Name of agg. fn
+        aggregate_to (Table):            Table to aggregate to
+        column (Column):                 Column to aggregate
+        select (Select):                 Select statement to mutate
 
     returns:
         Select: Select statement with added select of aggregated column.
@@ -245,8 +245,10 @@ def aggregate(aggregation_function: str, aggregate_to: Table, column: Column, se
             "min",
             "avg",
         ]
-    if aggregation_function in _allowed_aggregation_functions:
-        aggregation_function = getattr(sql.func, aggregation_function)
-        return Right(select.add_columns(aggregation_function(column)).group_by(*set(aggregate_to.primary_key)))
+    if aggregation_function_name in _allowed_aggregation_functions:
+        aggregation_function = getattr(sql.func, aggregation_function_name)
+        return Right(select
+                .add_columns(aggregation_function(column).label(column.name + "_" + aggregation_function_name))
+                .group_by(*set(aggregate_to.primary_key)))
     else:
-        return Left(f"Aggregation function {aggregation_function} does not exist.")
+        return Left(f"Aggregation function {aggregation_function_name} does not exist.")

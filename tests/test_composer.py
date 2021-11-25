@@ -115,3 +115,8 @@ class TestQueryComposer(TestCase):
 
         c = QueryComposer(network, "a", "t", "u").expression("c","val")
         self.assertIn("GROUP", c.value)
+
+    def test_proper_aliasing(self):
+        compose = QueryComposer(self.network, "a", "t", "u")
+        self.assertIn("val_avg", compose.expression("b", "val", aggregation_function = "avg").value)
+        self.assertIn("val_max", compose.expression("b", "val", aggregation_function = "max").value)
