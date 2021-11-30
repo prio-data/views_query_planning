@@ -24,7 +24,12 @@ T = TypeVar("T")
 
 class QueryComposer():
 
-    def __init__(self, network: DiGraph, loa_name: str, time_index: str, unit_index: str):
+    def __init__(self,
+            network: DiGraph,
+            loa_name: str,
+            time_index: str,
+            unit_index: str,
+            outer: bool = False):
         """
         QueryComposer
         =============
@@ -34,6 +39,7 @@ class QueryComposer():
             loa_name (str):             The name of the table to use as the level of analysis.
             time_index (str):           The name of the column in loa_name to use as the time-index
             unit_index (str):           The name of the column in loa_name to use as the unit-index
+            outer (bool):               Should expressions outer-join to keep all rows in at the LOA?
 
         The query composer lets you compute SQL queries for retrieving data in
         a normalized database, through joining and aggregating.
@@ -48,6 +54,7 @@ class QueryComposer():
         self.loa_name = loa_name
         self._time_index = time_index
         self._unit_index = unit_index
+        self._isouter = outer
 
     def joins(self, join_path: Deque[Table])-> Join:
         """
@@ -71,7 +78,7 @@ class QueryComposer():
                 edge = self.network[b][a]
                 condition = (edge["referent"] == edge["reference"])
 
-            expression = sql.join(expression, b, condition)
+            expression = sql.join(expression, b, condition, isouter = self._isouter)
             a = b
         return expression
 
