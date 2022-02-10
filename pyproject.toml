@@ -5,6 +5,7 @@ description = "Generate queries for relational databases"
 readme = "README.md"
 homepage = "https://www.github.com/prio-data/views_query_planning"
 authors = ["peder2911 <pglandsverk@gmail.com>"]
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
